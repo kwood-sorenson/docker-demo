@@ -26,5 +26,13 @@ echo If no tag is provided "latest" will be used
 read -p "Press enter to run the command"
 (set -x ; docker build -t docker-with-args -f arg-example/Dockerfile-args arg-example)
 read -p "Press enter to contine"
+echo Next is the command we use to see what images we have on our computer
+read -p "Press enter to run the command"
+(set -x ; docker images)
+read -p "Press enter to contine"
+echo Here we can see all the images weve created so far.
+echo Note that the build times of some of these images may not correspond to when you ran the command
+echo That is because docker uses a cache to save time when building images
+echo Since some of the images weve built are from the same Dockerfile and directory the cache has been used
 
 echo This comprises 99% of my day to day use of docker build
