@@ -35,3 +35,21 @@ read -p "we can provide the path to the container as an arg"
 read -p "or as an env var"
 (set -x ; docker run -v /home/:/mydir -e DEMO_VAR=/mydir docker-with-env)
 read -p "Press enter to contine"
+echo "all of the examples so far haven't needed to interact with the network"
+echo "docker containers are isolated from the host machine by default"
+echo "we can use the port flag to let a port on the host machine communicate with the container"
+echo "the syntax of the port flag is -p <host port>:<container port>"
+echo "the service-example docker container runs a simple flask server on port 5000 in its container"
+echo "here we map our host's port 5000 to the container's port 5000"
+read -p "Press enter to contine"
+(set -x ; docker build -t docker-webservice -f service-example/Dockerfile-service service-example)
+(set -x ; docker run -p 5000:5000 --name service-example docker-webservice &)
+echo "we can run 'curl localhost:5000' to send a GET request to the webservice"
+read -p "Press enter to contine"
+(set -x ; curl localhost:5000)
+read -p "Press enter to contine"
+echo "or give it some data on a POST request"
+read -p "Press enter to contine"
+(set -x ; curl localhost:5000 --data "data=Hello world")
+read -p "Press enter to contine"
+(set -x ; docker kill service-example)
